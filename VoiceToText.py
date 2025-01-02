@@ -2,11 +2,12 @@ import streamlit as st
 from streamlit_webrtc import webrtc_streamer, WebRtcMode
 import tempfile
 import wave
-import os
 from datetime import datetime
 import speech_recognition as sr
 from pydub import AudioSegment
 import configparser
+import os
+
 
 #設定ファイル
 config = configparser.ConfigParser()
@@ -67,6 +68,11 @@ def transcribe_audio_to_text():
             with open(txt_file_path, "w", encoding="utf-8") as txt_file:
                 txt_file.write(text)
             st.success(f"文字起こし結果を保存しました: {txt_file_path}")
+
+            #テキストファイルをS3へアップロード（動作確認未） 2025/1/2
+            # if text:
+            # upload_to_s3(text, S3_BUCKET_NAME, txt_file_name)
+
     except sr.UnknownValueError:
         st.warning("音声を認識できませんでした。")
     except sr.RequestError as e:
