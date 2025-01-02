@@ -1,5 +1,5 @@
 # 環境変数ファイル
-*.env
+.env
 
 # Pythonキャッシュ
 __pycache__/
