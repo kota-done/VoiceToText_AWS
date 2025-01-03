@@ -6,22 +6,29 @@ from io import BytesIO
 # .envファイルの内容を読み込見込む
 load_dotenv()
 
-# .envファイルの内容を読み込む
-load_dotenv()
+# #1 AWS認証情報 IAM Identity Centerのユーザーのため、セッショントークンが必要。エラーが頻発するため、envファイルでの参照中断
+# AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+# AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+# AWS_REGION = os.getenv('AWS_DEFAULT_REGION')
+# S3_BUCKET_NAME = os.getenv('S3_BUCKET_NAME')
 
-# AWS認証情報
-AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
-AWS_REGION = os.getenv('AWS_DEFAULT_REGION')
-S3_BUCKET_NAME = os.getenv('S3_BUCKET_NAME')
+# # S3クライアントの初期化
+# s3 = boto3.client(
+#     "s3",
+#     aws_access_key_id=AWS_ACCESS_KEY_ID,
+#     aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+#     region_name=AWS_REGION,
+# #1)
 
-# S3クライアントの初期化
-s3 = boto3.client(
-    "s3",
-    aws_access_key_id=AWS_ACCESS_KEY_ID,
-    aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
-    region_name=AWS_REGION,
-)
+#設定ファイル 2025/1/3
+import configparser
+config = configparser.ConfigParser()
+config.read('/Applications/python-docker/Chatbot_forOST/cognition.ini',encoding='utf-8')
+
+
+#boto3初期化 AWS CLIの認証情報を利用。2025/1/3
+s3 = boto3.client('s3')
+
 
 def upload_to_s3(content: str, bucket_name: str, file_name: str):
     """

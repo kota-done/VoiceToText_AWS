@@ -32,6 +32,10 @@ txt_file_path = os.path.join(config_txt_path, txt_file_name)
 is_recording = False
 audio_frames = []
 
+#boto3でのS3アップロード用　2025/1/3
+S3_BUCKET_NAME =os.getenv('S3_BUCKET_NAME')
+s3Key = config['S3_upload']['s3Key']
+
 # 音声認識を実行してコマンドを取得
 def recognize_command(audio_segment):
     recognizer = sr.Recognizer()
@@ -71,7 +75,7 @@ def transcribe_audio_to_text():
 
             #テキストファイルをS3へアップロード（動作確認未） 2025/1/2
             # if text:
-            # upload_to_s3(text, S3_BUCKET_NAME, txt_file_name)
+            # upload_to_s3(text, S3_BUCKET_NAME, s3Key)
 
     except sr.UnknownValueError:
         st.warning("音声を認識できませんでした。")
@@ -87,7 +91,7 @@ def display_transcription():
     else:
         st.info("文字起こし結果がまだありません。")
 
-#マイクボタンを教えたあと起動しないので、修正
+##1マイクボタンを教えたあと起動しないので、修正
 #12/29 12 時ごろ
 # # Streamlitアプリのメイン
 # st.title("音声制御による録音と文字起こし")
@@ -132,7 +136,7 @@ def display_transcription():
 
 # # ボタンで文字起こし結果を表示Chatbot_forOST/import streamlit as st.py
 # if st.button("文字起こし結果を表示"):
-#     display_transcription()
+##1     display_transcription()
 
 # Streamlitアプリのメイン
 st.title("音声制御による録音と文字起こし")
