@@ -11,7 +11,7 @@ import os
 
 #設定ファイル
 config = configparser.ConfigParser()
-config.read('/Applications/python-docker/Chatbot_forOST/cognition.ini',encoding='utf-8')
+config.read('/Applications/python-docker/VoiceToText_AWS/cognition.ini',encoding='utf-8')
 
 
 #音声ファイル保管先
@@ -32,7 +32,7 @@ txt_file_path = os.path.join(config_txt_path, txt_file_name)
 is_recording = False
 audio_frames = []
 
-#boto3でのS3アップロード用　2025/1/3
+#boto3でのS3アップロード用 バケット名はenvファイルだが認証情報はIAM Session Manager　2025/1/3
 S3_BUCKET_NAME =os.getenv('S3_BUCKET_NAME')
 s3Key = config['S3_upload']['s3Key']
 
