@@ -23,7 +23,7 @@ load_dotenv()
 #設定ファイル 2025/1/3
 import configparser
 config = configparser.ConfigParser()
-config.read('/Applications/python-docker/Chatbot_forOST/cognition.ini',encoding='utf-8')
+config.read('/Applications/python-docker/VoiceToText_AWS/cognition.ini',encoding='utf-8')
 
 
 #boto3初期化 AWS CLIの認証情報を利用。2025/1/3
@@ -46,12 +46,12 @@ def upload_to_s3(content: str, bucket_name: str, file_name: str):
     print(f"S3にアップロード成功: {file_name}")
 
 # 文字起こし結果（`text`変数）を生成し、アップロード
-if __name__ == "__main__":
-    # 文字起こし結果を仮定（通常は文字起こし処理の出力として取得）
-    text = "これはサンプルの文字起こし結果です。"
+# if __name__ == "__main__":
+#     # 文字起こし結果を仮定（通常は文字起こし処理の出力として取得）
+#     text = "これはサンプルの文字起こし結果です。"
 
-    # ファイル名を指定
-    file_name = "transcription_sample.txt"
+#     # ファイル名を指定
+#     file_name = "transcription_sample.txt"
 
-    # S3にアップロード
-    upload_to_s3(text, S3_BUCKET_NAME, file_name)
+#     # S3にアップロード
+#     upload_to_s3(text, S3_BUCKET_NAME, file_name)
