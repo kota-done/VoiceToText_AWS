@@ -30,16 +30,18 @@ config.read('/Applications/python-docker/VoiceToText_AWS/cognition.ini',encoding
 s3 = boto3.client('s3')
 
 
-def upload_to_s3(content: str, bucket_name: str, file_name: str):
+def upload_to_s3(content, bucket_name: str, file_name: str):
     """
-    メモリ上の文字列をテキストファイルとしてS3にアップロードする関数
+    メモリ上データをS3にアップロードする関数
+    2025/03/23
+    テキストデータではなく音声データでそのままS3にアップロードすることにした。Web上でテキスト変換は現状精度が低く、時間がかかるため。
     """
     # 文字列をバイトストリームに変換
-    text_data = BytesIO(content.encode("utf-8"))
+    # text_data = BytesIO(content.encode("utf-8"))
     
     # S3にアップロード
     s3.upload_fileobj(
-        Fileobj=text_data,  # メモリ上のデータ
+        Fileobj=content,  # メモリ上のデータ
         Bucket=bucket_name,  # アップロード先のS3バケット名
         Key=file_name,  # S3上でのファイル名
     )
